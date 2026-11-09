@@ -10,7 +10,6 @@
 <link rel="canonical" href="https://sangchecongcu.vercel.app/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sangchecongcu.vercel.app/">
 <meta property="og:site_name" content="Người Sáng Chế">
@@ -44,7 +43,13 @@ body{margin:0;background:var(--wall) radial-gradient(circle,var(--hole) 0 2.5px,
 .in{max-width:76rem;margin:0 auto;padding-left:max(var(--pad),env(safe-area-inset-left));padding-right:max(var(--pad),env(safe-area-inset-right))}
 a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
 
-header{padding:calc(env(safe-area-inset-top,0px) + 2.5rem) 0 2rem}
+/* Dải liên kết chung giữa hai trang */
+.site{display:flex;flex-wrap:wrap;gap:1.5rem;padding-top:calc(env(safe-area-inset-top,0px) + .75rem);font:600 .95rem/1.2 var(--sans)}
+.site a{display:inline-flex;align-items:center;min-height:2.75rem;color:var(--mute);text-decoration:none;border-bottom:2px solid transparent}
+.site a:hover{color:var(--ink)}
+.site a[aria-current]{color:var(--ink);border-bottom-color:var(--brass)}
+
+header{padding:1.25rem 0 2rem}
 h1{margin:0;font:800 clamp(3.4rem,17vw,9rem)/.92 var(--serif);letter-spacing:-.02em}
 h1 span{display:block}
 h1 span+span{margin-left:.4em}
@@ -72,8 +77,12 @@ button.slot{cursor:pointer}
 
 /* Khung dùng thử: chạy app thật */
 .stage{--c:var(--mute);display:grid;gap:1.5rem;justify-items:center;scroll-margin-top:1rem}
+.stage[hidden]{display:none}
 .phone{position:relative;width:min(100%,21rem);aspect-ratio:9/18.5;border:.6rem solid #0a0f14;border-radius:2.2rem;background:#0a0f14;overflow:hidden;box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 70%,transparent)}
 .phone iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:1.6rem;background:#fff}
+/* Màn hình hẹp: chỉ tải bản xem thử khi khách bấm */
+.phone .go{position:absolute;inset:0;width:100%;display:grid;place-content:center;gap:.6rem;padding:1.5rem;border:0;border-radius:1.6rem;background:var(--wall);color:var(--ink);font:800 1.2rem/1.25 var(--sans);text-align:center;cursor:pointer}
+.phone .go small{color:var(--mute);font:500 .9rem/1.4 var(--sans)}
 .info{width:min(100%,21rem);padding-left:1rem;border-left:.5rem solid var(--c)}
 .info h2{margin:0;font:800 clamp(2rem,9vw,2.8rem)/1.05 var(--serif)}
 .info p{margin:.5rem 0 0}
@@ -88,11 +97,9 @@ button.slot{cursor:pointer}
 .ask h2{margin:0;font:800 clamp(2.2rem,10vw,3.6rem)/1 var(--serif)}
 .ask p{margin:.9rem 0 0;max-width:30rem;color:var(--mute)}
 .ask .btn{display:inline-flex;--c:var(--brass);color:#1d2733}
-.ask .btn[hidden]{display:none}
-.back{display:block;width:fit-content;margin-top:1.5rem;color:var(--mute);text-underline-offset:.25em}
 
 @media (min-width:900px){
-  header{padding-top:calc(env(safe-area-inset-top,0px) + 4rem)}
+  header{padding-top:2.5rem}
   main{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:4.5rem;align-items:start}
   .stage{position:sticky;top:1.5rem}
   .ask .in{display:grid;grid-template-columns:1fr 1fr;column-gap:4.5rem;align-items:end}
@@ -100,6 +107,7 @@ button.slot{cursor:pointer}
 </style>
 </head>
 <body>
+<nav class="site in" aria-label="Các trang"><a href="https://kientaomohinh.vercel.app/">Kẻ Kiến Tạo</a><a href="https://sangchecongcu.vercel.app/" aria-current="page">Người Sáng Chế</a></nav>
 <header><div class="in">
   <h1><span>Sáng Chế</span><span>Công Cụ</span></h1>
   <p class="sub">Công cụ số cho tiệm nhỏ. Bấm một món để dùng thử ngay.</p>
@@ -115,25 +123,23 @@ button.slot{cursor:pointer}
       <span class="tag" id="tg"></span>
       <a class="btn" id="open" href="#" target="_blank" rel="noopener">Mở toàn màn hình</a>
       <p class="hint">Mở xong, chọn Thêm vào màn hình chính để cài về máy.</p>
+      <p class="hint">Khung xem thử chỉ để chạy thử: dữ liệu nhập ở đây không lưu sang app mở riêng.</p>
     </div>
   </section>
 </main>
 
 <footer class="ask"><div class="in">
   <div>
-    <h2>Cần công cụ gì?</h2>
-    <p>Kể một việc ở tiệm đang làm bằng tay. Món treo tiếp theo có thể bắt đầu từ đó.</p>
+    <h2>Xem thêm mô hình</h2>
+    <p>Kẻ Kiến Tạo ghi lại những mô hình đã dựng và đang chạy thật.</p>
   </div>
   <div>
-    <a class="btn" id="contact" href="#" target="_blank" rel="noopener" hidden>Nhắn Quang</a>
-    <a class="back" href="https://kientaomohinh.vercel.app/">Xem các mô hình ở Kẻ Kiến Tạo</a>
+    <a class="btn" href="https://kientaomohinh.vercel.app/">Sang Kẻ Kiến Tạo</a>
   </div>
 </div></footer>
 
 <script>
-/* Thêm công cụ mới: thêm một khối vào TOOLS (id không dấu, không khoảng trắng). Bảng tự treo thêm một món và dời chỗ trống.
-   CONTACT: link Zalo hoặc số điện thoại dạng "https://zalo.me/..." để hiện nút Nhắn Quang. Để trống thì ẩn nút. */
-var CONTACT="";
+/* Thêm công cụ mới: thêm một khối vào TOOLS (id không dấu, không khoảng trắng). Bảng tự treo thêm một món và dời chỗ trống. */
 var TOOLS=[
 {
   id:"dat-hang", name:"Đặt hàng",
@@ -177,30 +183,46 @@ for(var k=TOOLS.length%2?1:2;k>0;k--){
   slots.appendChild(e);
 }
 
+var wide=matchMedia("(min-width:900px)");
+
+function loadFrame(t){
+  var f=document.createElement("iframe");
+  f.title="Dùng thử công cụ "+t.name;
+  f.setAttribute("sandbox","allow-scripts allow-same-origin allow-forms allow-modals allow-downloads allow-popups");
+  f.src=t.url;
+  phone.replaceChildren(f);
+}
+function showGo(t){
+  var b=document.createElement("button");
+  b.type="button";b.className="go";
+  b.innerHTML='Chạy thử ngay trong trang<small>Hoặc bấm Mở toàn màn hình bên dưới</small>';
+  b.addEventListener("click",function(){loadFrame(t)});
+  phone.replaceChildren(b);
+}
+
 function pick(id,user){
   var t=TOOLS.filter(function(x){return x.id===id})[0];
   if(!t||t===cur)return;
   cur=t;
+  stage.hidden=false;
   [].forEach.call(slots.querySelectorAll("button.slot"),function(b){b.setAttribute("aria-pressed",b.getAttribute("data-id")===id)});
   stage.style.setProperty("--c",t.color);
   document.getElementById("nm").textContent=t.name;
   document.getElementById("ln").textContent=t.line;
   document.getElementById("tg").textContent=t.tag;
   document.getElementById("open").href=t.url;
-  var f=document.createElement("iframe");
-  f.title="Dùng thử công cụ "+t.name;
-  f.setAttribute("sandbox","allow-scripts allow-same-origin allow-forms allow-modals allow-downloads allow-popups");
-  f.src=t.url;
-  phone.replaceChildren(f);
+  if(wide.matches)loadFrame(t);else showGo(t);
   history.replaceState(null,"","#"+id);
-  if(user&&innerWidth<900)stage.scrollIntoView({behavior:calm?"auto":"smooth",block:"start"});
+  if(user&&!wide.matches)stage.scrollIntoView({behavior:calm?"auto":"smooth",block:"start"});
 }
 
-var ct=document.getElementById("contact");
-if(CONTACT){ct.href=CONTACT;ct.hidden=false}
-
 pick(location.hash.slice(1),false);
-if(!cur)pick(TOOLS[0].id,false);
+if(!cur){if(wide.matches)pick(TOOLS[0].id,false);else stage.hidden=true}
+wide.addEventListener("change",function(){
+  if(!wide.matches)return;
+  if(!cur)pick(TOOLS[0].id,false);
+  else if(!phone.querySelector("iframe"))loadFrame(cur);
+});
 addEventListener("hashchange",function(){pick(location.hash.slice(1),false)});
 </script>
 </body>

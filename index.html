@@ -55,7 +55,7 @@ h1 span{display:block}
 h1 span+span{margin-left:.4em}
 .sub{margin:1.25rem 0 0;max-width:24rem;color:var(--mute);font-size:1.05rem}
 
-main{display:grid;gap:3rem;padding-bottom:3.5rem}
+main{display:grid;gap:3rem;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 3.5rem)}
 
 /* Các món treo trên bảng. Viền nét đứt là hình bóng đồ nghề: món nào được rút ra thì chỗ treo vẫn còn đó */
 .slots{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
@@ -92,17 +92,12 @@ button.slot{cursor:pointer}
 .btn:active{transform:scale(.98)}
 .hint{margin:.7rem 0 0;color:var(--mute);font-size:.9rem}
 
-/* Lời mời cuối trang */
-.ask{border-top:3px dashed rgba(166,181,195,.35);padding:2.5rem 0 calc(env(safe-area-inset-bottom,0px) + 3rem)}
-.ask h2{margin:0;font:800 clamp(2.2rem,10vw,3.6rem)/1 var(--serif)}
-.ask p{margin:.9rem 0 0;max-width:30rem;color:var(--mute)}
-.ask .btn{display:inline-flex;--c:var(--brass);color:#1d2733}
+
 
 @media (min-width:900px){
   header{padding-top:2.5rem}
   main{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:4.5rem;align-items:start}
   .stage{position:sticky;top:1.5rem}
-  .ask .in{display:grid;grid-template-columns:1fr 1fr;column-gap:4.5rem;align-items:end}
 }
 </style>
 </head>
@@ -128,15 +123,6 @@ button.slot{cursor:pointer}
   </section>
 </main>
 
-<footer class="ask"><div class="in">
-  <div>
-    <h2>Xem thêm mô hình</h2>
-    <p>Kẻ Kiến Tạo ghi lại những mô hình đã dựng và đang chạy thật.</p>
-  </div>
-  <div>
-    <a class="btn" href="https://kientaomohinh.vercel.app/">Sang Kẻ Kiến Tạo</a>
-  </div>
-</div></footer>
 
 <script>
 /* Thêm công cụ mới: thêm một khối vào TOOLS (id không dấu, không khoảng trắng). Bảng tự treo thêm một món và dời chỗ trống. */
